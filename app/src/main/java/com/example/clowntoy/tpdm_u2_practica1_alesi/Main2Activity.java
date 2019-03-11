@@ -38,13 +38,13 @@ public class Main2Activity extends AppCompatActivity {
                 Float.parseFloat(pres.getText().toString()));
         boolean con=insert.insertar(nuevo);
         AlertDialog.Builder b=new AlertDialog.Builder(this);
-        if(!con){
-            b.setTitle("Error").setPositiveButton("OK",null)
-                    .setMessage(insert.getError()).show();
+        if(con){
+            b.setTitle("Exito").setPositiveButton("OK",null)
+                    .setMessage("La inserción se realizo con éxito.").show();
 
             return;
         }
-        b.setTitle("Exito").setPositiveButton("OK",null)
-                .setMessage("La inserción se realizo con éxito.").show();
+        b.setTitle("Error").setPositiveButton("OK",null)
+                .setMessage("La inserción no se pudo realizar").show();
     }
 }

@@ -82,11 +82,18 @@ public class Proyecto {
     public boolean insertar(Proyecto proy){
         try{
             SQLiteDatabase insert=base.getWritableDatabase();
-            String SQL="INSERT INTO Proyectos VALUES(NULL,'"+proy.getDesc()
-                    +"','"+proy.getUbic()+"','"+proy.getFecha()+"',"+proy.getPres();
-            insert.execSQL(SQL);
+            ContentValues valores=new ContentValues();
+            valores.put("DESCRIPCION",proy.getDesc());
+            valores.put("UBICACION",proy.getUbic());
+            valores.put("FECHA",proy.getFecha());
+            valores.put("PRESUPUESTO",proy.getPres());
+            long resultado=insert.insert("Proyectos","IDPROYECTO ",valores);
             insert.close();
-        }catch (SQLiteException e){
+            if(resultado==-1){
+                error="El insert no pudo realizarse";
+                return false;
+            }
+        }catch(SQLiteException e){
             error=e.getMessage();
             return false;
         }
@@ -97,7 +104,7 @@ public class Proyecto {
         Proyecto[] result=null;
         try{
             SQLiteDatabase select=base.getReadableDatabase();
-            String SQL="SELECT * FROM Abogado";
+            String SQL="SELECT * FROM Proyectos;";
             Cursor c=select.rawQuery(SQL,null);
             if(c.moveToFirst()) {
                 result = new Proyecto[c.getCount()];
@@ -121,7 +128,7 @@ public class Proyecto {
         Proyecto result=null;
         try{
             SQLiteDatabase select=base.getReadableDatabase();
-            String SQL="SELECT * FROM Abogado WHERE IDPROYECTO="+id;
+            String SQL="SELECT * FROM Proyectos WHERE IDPROYECTO="+id+";";
             Cursor c=select.rawQuery(SQL,null);
             if(c.moveToFirst()) {
                 result = new Proyecto(c.getInt(0), c.getString(1),
@@ -138,7 +145,7 @@ public class Proyecto {
         Proyecto result=null;
         try{
             SQLiteDatabase select=base.getReadableDatabase();
-            String SQL="SELECT * FROM Abogado WHERE DESCRIPCION='"+d+"'";
+            String SQL="SELECT * FROM Proyectos WHERE DESCRIPCION='"+d+"';";
             Cursor c=select.rawQuery(SQL,null);
             if(c.moveToFirst()) {
                 result = new Proyecto(c.getInt(0), c.getString(1),

@@ -15,7 +15,7 @@ public class BaseProyecto extends SQLiteOpenHelper {
                 "DESCRIPCION VARCHAR(200) NOT NULL," +
                 "UBICACION VARCHAR(200)," +
                 "FECHA DATE," +
-                "PRESUPUESTO FLOAT)");
+                "PRESUPUESTO FLOAT);");
     }
 
     @Override

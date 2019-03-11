@@ -9,52 +9,48 @@ import android.widget.TextView;
 
 public class Main3Activity extends AppCompatActivity {
 
-    EditText busc;
-    Button cons,retu;
+    EditText cons;
     TextView uno,dos,tres,cuatro;
+
+    Button search,exit;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main3);
-        busc=findViewById(R.id.buscCons);
-        cons=findViewById(R.id.Cons);
-        retu=findViewById(R.id.consRet);
-        uno.findViewById(R.id.unoA);
-        dos.findViewById(R.id.dosA);
-        tres.findViewById(R.id.tresA);
-        cuatro.findViewById(R.id.cuatroA);
 
-        cons.setOnClickListener(new View.OnClickListener() {
+        cons=findViewById(R.id.buscCons);
+        uno=findViewById(R.id.unoA);
+        dos=findViewById(R.id.dosA);
+        tres=findViewById(R.id.tresA);
+        cuatro=findViewById(R.id.cuatroA);
+        search=findViewById(R.id.Cons);
+        exit=findViewById(R.id.consRet);
+
+        search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Proyecto consulta=new Proyecto(Main3Activity.this);
-                try{
-                    Proyecto res=consulta.consultar(Integer.parseInt(busc.getText().toString()));
-                    if(res!=null){
-                        uno.setText(res.getDesc());
-                        dos.setText(res.getUbic());
-                        tres.setText(res.getFecha());
-                        cuatro.setText(res.getPres()+"");
-                    }
-                }catch(NumberFormatException e){
-                    Proyecto res=consulta.consultar(busc.getText().toString());
-                    if(res!=null) {
-                        uno.setText(res.getDesc());
-                        dos.setText(res.getUbic());
-                        tres.setText(res.getFecha());
-                        cuatro.setText(res.getPres() + "");
-                    }
+                try {
+                    Proyecto select = new Proyecto(Main3Activity.this);
+                    select = select.consultar(Integer.parseInt(cons.getText().toString()));
+                    uno.setText(select.getDesc());
+                    dos.setText(select.getUbic());
+                    tres.setText(select.getFecha());
+                    cuatro.setText(select.getPres()+"");
+                }catch (NumberFormatException e){
+                    Proyecto select = new Proyecto(Main3Activity.this);
+                    select = select.consultar(cons.getText().toString());
+                    uno.setText(select.getDesc());
+                    dos.setText(select.getUbic());
+                    tres.setText(select.getFecha());
+                    cuatro.setText(select.getPres()+"");
                 }
             }
         });
-
-
-        retu.setOnClickListener(new View.OnClickListener() {
+        exit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
-
     }
 }

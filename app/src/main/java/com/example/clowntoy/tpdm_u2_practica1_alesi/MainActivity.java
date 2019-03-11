@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         lista=findViewById(R.id.lista);
-        
+
     }
     @Override
     protected void onStart() {
@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
         vector=pro.consultar();
         String[] proyectodesc=null;
         if(vector==null){
-            proyectodesc=new String[]{"No hay abogados capturados"};
+            proyectodesc=new String[]{"No hay proyecto capturados"};
         }else{
             proyectodesc=new String[vector.length];
             for(int i=0;i<vector.length;i++){
